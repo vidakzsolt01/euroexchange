@@ -60,8 +60,8 @@ public class EuroXchange extends javax.swing.JFrame {
         txtDeviza.setSize(txtDeviza.getPreferredSize());
         if (filename == null){
             JOptionPane.showMessageDialog(null, 
-                    "Az online file nem letölthető, és az alapértelmezett file (arfolyam.xml) \n"
-                            + "nem található, használja a file-tallózó lehetőséget!");
+                    "Az online árfolyam-XML nem tölthető le, és az alapértelmezett file (arfolyam.xml) \n"
+                            + "sem található, használja a file-tallózó lehetőséget!");
             lblEuroRateValue.setText(VALUE_EMPTY);
             lblRateDateValue.setText(VALUE_EMPTY);
             return;
@@ -192,6 +192,7 @@ public class EuroXchange extends javax.swing.JFrame {
         lblSource3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("euroXchange - Devizaszámítás");
         setSize(new java.awt.Dimension(361, 308));
 
         btnExit.setText("Kilépés");
@@ -300,15 +301,12 @@ public class EuroXchange extends javax.swing.JFrame {
                     .addComponent(rbLocalFile))
                 .addGap(2, 2, 2)
                 .addComponent(lblOnlineStatus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(pnlXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlXmlLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(lblSource1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlXmlLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addGroup(pnlXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSourcefile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFilebrowse))))
+                    .addComponent(lblSource1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSourcefile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFilebrowse)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRateDate)
