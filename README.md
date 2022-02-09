@@ -1,0 +1,2 @@
+# euroexchange
+Kompetencifelméréshez feladat
