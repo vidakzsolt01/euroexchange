@@ -28,6 +28,10 @@ hs_err_pid*
 # "munka" XML-ek
 arfolyam*.xml*
 
+# xml-ek mappája
+./xml
+
 # Netbeans config XML-ek
 nbactions.xml
 nb-configuration.xml
+/nbproject/
