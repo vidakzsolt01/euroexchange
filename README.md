@@ -23,7 +23,7 @@ választott a felhasználó.<br>
 
 A használathoz: nincs külön "Számítás" v. "Átváltás" v. efféle gomb, a program egyszerűen a vezérlelemek változásai nyomán számol, vagyis, ha megváltozik
 - a <i>"Devizaérték"</i> mező értéke vagy
-- a <i>"Devizák"</i> lista kiválaztott eleme,
+- a <i>"Devizanemek"</i> lista kiválaztott eleme,
 akkor lefut a számítás. (Figyelem! A szövegmező <i>megváltozását</i> egy (szám)billentyűletütés <b>nem</b> váltja ki, csak a mezőn <b>leütött [Enter]</b> billentyű.)
 
 
