@@ -531,6 +531,10 @@ public class EuroXchange extends javax.swing.JFrame {
             if (fileBrowser == null) fileBrowser = createFileChooser();
             int returnVal = fileBrowser.showOpenDialog(EuroXchange.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
+                if (!fileBrowser.getSelectedFile().getName().endsWith(".xml")){
+                    JOptionPane.showMessageDialog(this, "Csak XML file-okat olvassuk be, a kiválasztott nem az: \n\n" + fileBrowser.getSelectedFile().getName());
+                    return;
+                }
                 rateXmlFilename = fileBrowser.getSelectedFile().getName();
                 rateXmlPath = fileBrowser.getCurrentDirectory() + File.separator;
                 try {
