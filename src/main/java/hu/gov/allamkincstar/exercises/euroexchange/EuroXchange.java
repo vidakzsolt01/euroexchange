@@ -19,6 +19,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -62,12 +63,11 @@ public class EuroXchange extends javax.swing.JFrame {
     public static final String CURRENCY_HUF = "HUF";
     public static final String VALUE_EMPTY = "-";
     
-    private static final String REGEXP_NUMBERS = "[0-9]*";
-
-    private ButtonGroup rgSource;
+    private ButtonGroup rgSource = new ButtonGroup();
     private JFileChooser fileBrowser = null;
     
     private XchangeRate HUFRate;
+    private String rateXmlPath;
     private String rateXmlFilename;
     
     private OnlineFile onlineFile;
@@ -111,6 +111,7 @@ public class EuroXchange extends javax.swing.JFrame {
     private String determineRateXmlFile() throws ParseException{
         onlineFile = new OnlineFile();
         String filename = onlineFile.getFilename();
+        rateXmlPath = PATH_RATEXML;
         if (filename == null) {
             filename = findDefaultXmlFile();
         }
@@ -141,7 +142,6 @@ public class EuroXchange extends javax.swing.JFrame {
      * beállítja a rádiógombok kezdeti megjelenítását - a file-betöltéstől függően
      */
     private void initRadios(){
-        rgSource = new ButtonGroup();
         rgSource.add(rbOnline);
         rgSource.add(rbLocalFile);
         rbOnline.setSelected(onlineFile.isEcbAvailable());
@@ -173,11 +173,12 @@ public class EuroXchange extends javax.swing.JFrame {
      */
     private void loadXml() throws JAXBException, FileNotFoundException, ParseException{
         if (rateXmlFilename == null) return;
-        Xml xml = new Xml(rateXmlFilename);
+        Xml xml = new Xml(rateXmlPath, rateXmlFilename);
         if (xml.getResultCode() != Xml.RESULTCODE_OK){
             JOptionPane.showMessageDialog(this, xml.getResultMessage());
             return;
         }
+        txtSourcefile.setText(rateXmlPath + rateXmlFilename);
         for (XchangeRate rate : xml.getRates()) {
             cmbDevizas.addItem(rate);
             if (CURRENCY_HUF.equals(rate.getCurrency())) {
@@ -204,6 +205,8 @@ public class EuroXchange extends javax.swing.JFrame {
     private JFileChooser createFileChooser(){
         JFileChooser result = new JFileChooser();
         result.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter extFilter = new FileNameExtensionFilter("XML file-ok", "xml");
+        result.addChoosableFileFilter(extFilter);
         FileFilter nameFilter = new FileFilter() {
             @Override
             public boolean accept(File f) {
@@ -528,12 +531,8 @@ public class EuroXchange extends javax.swing.JFrame {
             if (fileBrowser == null) fileBrowser = createFileChooser();
             int returnVal = fileBrowser.showOpenDialog(EuroXchange.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                if (!fileBrowser.getSelectedFile().getName().matches("arfolyam_[0-9]{8}_[0-9]{6}.xml")){
-                    JOptionPane.showMessageDialog(this, "Csak a program által mentett, \"arfolyam_ÉÉHHNN_ÓÓPPMM.xml\" formájú file-okat olvassuk be.");
-                    return;
-                }
                 rateXmlFilename = fileBrowser.getSelectedFile().getName();
-                txtSourcefile.setText(rateXmlFilename);
+                rateXmlPath = fileBrowser.getCurrentDirectory() + File.separator;
                 try {
                     loadXml();
                 } catch (JAXBException | FileNotFoundException | ParseException ex) {
@@ -576,6 +575,7 @@ public class EuroXchange extends javax.swing.JFrame {
         radioChanged();
         try {
             rateXmlFilename = onlineFile.getFilename();
+            rateXmlPath = PATH_RATEXML;
             loadXml();
             txtSourcefile.setText(rateXmlFilename);
         } catch (ParseException | JAXBException | FileNotFoundException ex) {

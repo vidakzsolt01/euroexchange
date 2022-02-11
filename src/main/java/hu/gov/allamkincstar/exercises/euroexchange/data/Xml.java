@@ -55,9 +55,9 @@ public class Xml {
     /**
      * a betöltés eredményének szöveges tartalma
      */
-    public static final String RESULT_OK = "Az XML betöltése sikeresen lezajlott";
-    public static final String RESULT_ERROR_NO_RATE_XML = "A megadott file nem árfolyam-XML.";
-    public static final String RESULT_ERROR_PARSING = "Az XML elemzése/betöltése nem sikerült";
+    private static final String RESULT_OK = "Az XML betöltése sikeresen lezajlott";
+    private static final String RESULT_ERROR_NO_RATE_XML = "A megadott file nem árfolyam-XML: ";
+    private static final String RESULT_ERROR_PARSING = "Az XML elemzése/betöltése nem sikerült";
 
     /**
      * devizaárfolyamok listája - ez fog megjelennit a fomr-on a comboboxban
@@ -88,9 +88,9 @@ public class Xml {
      * @throws FileNotFoundException
      * @throws ParseException 
      */
-    public Xml(String xmlFilename) throws JAXBException, FileNotFoundException, ParseException {
+    public Xml(String path, String xmlFilename) throws JAXBException, FileNotFoundException, ParseException {
         this.filename = xmlFilename;
-        XmlLoader dp = new XmlLoader(xmlFilename);
+        XmlLoader dp = new XmlLoader(path, xmlFilename);
         this.rates = dp.rateList;
         this.rateDate = dp.rateDate;
         this.resultCode = dp.resultCode;
@@ -157,6 +157,7 @@ public class Xml {
         Date rateDate;
         int resultCode = RESULTCODE_OK;
         String resultMessage = RESULT_OK;
+        String path;
 
         /**
          * Minden a konstruktorban intéződik
@@ -165,8 +166,9 @@ public class Xml {
          * Közben beállításra kerülnek az eredményváltozók is.
          * @param filename 
          */
-        public XmlLoader(String filename) {
-             Document document = parseXmlToDOM(filename);
+        public XmlLoader(String path, String filename) {
+            this.path = path; 
+            Document document = parseXmlToDOM(this.path, filename);
             if (document != null && resultCode == RESULTCODE_OK){
                 try {
                     processDocument(document);
@@ -205,7 +207,7 @@ public class Xml {
                     resultMessage = RESULT_ERROR_PARSING;
                     break;
                 case RESULTCODE_ERROR_NO_RATE_XML:
-                    resultMessage = RESULT_ERROR_NO_RATE_XML;
+                    resultMessage = RESULT_ERROR_NO_RATE_XML + "\n\n" + path + filename;
                     break;
                 default:
                     throw new AssertionError();
@@ -219,10 +221,10 @@ public class Xml {
          * @param filename
          * @return 
          */
-        private Document parseXmlToDOM(String filename) {
+        private Document parseXmlToDOM(String path, String filename) {
             
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            File xmlFile = new File(EuroXchange.PATH_RATEXML + filename);
+            File xmlFile = new File(path + filename);
             try {
                 dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
                 DocumentBuilder db = dbf.newDocumentBuilder();
