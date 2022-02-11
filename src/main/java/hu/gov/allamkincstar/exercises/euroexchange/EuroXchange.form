@@ -275,7 +275,7 @@
                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtDeviza" alignment="0" min="-2" pref="65" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="61" max="32767" attributes="0"/>
+                          <EmptySpace pref="60" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -332,7 +332,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Deviz&#xe1;k:"/>
+            <Property name="text" type="java.lang.String" value="Devizanemek:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">

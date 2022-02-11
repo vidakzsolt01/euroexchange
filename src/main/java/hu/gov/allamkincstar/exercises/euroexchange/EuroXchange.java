@@ -385,7 +385,7 @@ public class EuroXchange extends javax.swing.JFrame {
 
         jLabel1.setText("Devizaérték:");
 
-        jLabel2.setText("Devizák:");
+        jLabel2.setText("Devizanemek:");
 
         jLabel3.setText("Érték forintban:");
 
@@ -439,7 +439,7 @@ public class EuroXchange extends javax.swing.JFrame {
                         .addGroup(pnlXchangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(txtDeviza, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                         .addGroup(pnlXchangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlXchangeLayout.createSequentialGroup()
                                 .addGroup(pnlXchangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
